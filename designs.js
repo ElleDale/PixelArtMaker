@@ -1,16 +1,15 @@
-// Pick color
+// Select color
 const color = document.getElementById("colorPicker");
-
-// Input size
+// Select size input
 const pickSize = document.getElementById("sizePicker");
 const canvas = document.getElementById("pixelCanvas");
 const height = document.getElementById("inputHeight");
 const width = document.getElementById("inputWidth");
 
-// function creates grid
-function makeGrid() {
 
-// clears canvas
+// function to create grid
+function makeGrid() {
+// clear old canvas
     canvas.innerHTML = '';
 
     let tr, td;
@@ -26,15 +25,14 @@ function makeGrid() {
     }
 }
 
-// function to choose color
+// function to pick a color
 canvas.addEventListener("click", function (event) {
     event.preventDefault();
     if (event.target.nodeName === 'TD') {
         event.target.style.backgroundColor = color.value;
     }
 });
-
-// function to pick grid size
+// function to pick the size of the grid
 pickSize.addEventListener("submit", function (mouseEvent) {
     mouseEvent.preventDefault();
     makeGrid();
