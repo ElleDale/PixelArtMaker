@@ -1,39 +1,31 @@
-// Select color
-const color = document.getElementById("colorPicker");
-// Select size input
-const pickSize = document.getElementById("sizePicker");
-const canvas = document.getElementById("pixelCanvas");
-const height = document.getElementById("inputHeight");
-const width = document.getElementById("inputWidth");
+const pixelCanvas = document.querySelector("#pixelCanvas");
+pixelCanvas.addEventListener("click", drawPixel);
 
 
-// function to create grid
-function makeGrid() {
-// clear old canvas
-    canvas.innerHTML = '';
+// When size is submitted by the user, call makeGrid()
+document.querySelector("#sizePicker").addEventListener("submit", makeGrid);
 
-    let tr, td;
 
-    for (let i = 0; i < height.value; i++) {
-        tr = document.createElement('tr');
-        canvas.appendChild(tr);
-        for (let j = 0; j < width.value; j++) {
-            td = document.createElement('td');
-            tr.appendChild(td);
+function makeGrid(event) {
+    event.preventDefault();
+    const inputHeight = document.querySelector("#inputHeight").value; // Select Height size input
+    const inputWidth = document.querySelector("#inputWidth").value; // Select width size input
 
-        }
+    while (pixelCanvas.firstChild) {
+        pixelCanvas.removeChild(pixelCanvas.firstChild);
     }
+
+    for(let row = 1; row <= inputHeight; row++){
+        const tr = document.createElement('tr');
+        pixelCanvas.appendChild(tr);
+        for(let column = 1; column <= inputWidth; column++ ){
+            let td = document.createElement('td');
+            tr.appendChild(td);
+        }
+    }  
 }
 
-// function to pick a color
-canvas.addEventListener("click", function (event) {
-    event.preventDefault();
-    if (event.target.nodeName === 'TD') {
-        event.target.style.backgroundColor = color.value;
-    }
-});
-// function to pick the size of the grid
-pickSize.addEventListener("submit", function (mouseEvent) {
-    mouseEvent.preventDefault();
-    makeGrid();
-});
+function drawPixel(event){
+    const colour = document.querySelector("#colorPicker").value; // Select color input
+    event.target.style.backgroundColor = colour;
+}
